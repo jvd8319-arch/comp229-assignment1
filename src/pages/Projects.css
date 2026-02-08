@@ -1,0 +1,77 @@
+/* REMOVE GLOBAL OVERRIDE — no more body reset */
+/* (This was breaking navbar alignment on Projects & Services) */
+
+/* MAIN WRAPPER — matches Home/Contact/Services layout */
+.projects-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 80px 20px;
+  box-sizing: border-box;
+  background: #ffffff;   /* Page stays white */
+}
+
+/* PAGE TITLE */
+.projects-title {
+  font-size: 2.4rem;
+  color: #c1121f;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+/* INTRO PARAGRAPH */
+.projects-intro {
+  font-size: 1rem;
+  color: #444;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+/* PROJECT LIST — vertical stack */
+.projects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* EACH PROJECT ITEM */
+.project-item {
+  background: #ffffff;
+  padding: 20px 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: 0.3s ease;
+}
+
+/* Hover effect */
+.project-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+/* PROJECT TITLE */
+.project-item h2 {
+  font-size: 1.3rem;
+  margin-bottom: 6px;
+  color: #222;
+}
+
+/* ROLE */
+.project-item h3 {
+  font-size: 1rem;
+  color: #c1121f;
+  margin-bottom: 10px;
+}
+
+/* DESCRIPTION */
+.project-item p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .projects-wrapper {
+    padding: 60px 15px;
+  }
+}

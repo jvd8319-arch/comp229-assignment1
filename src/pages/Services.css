@@ -1,0 +1,65 @@
+/* MAIN WRAPPER — identical to About, Projects, Contact */
+.services-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 80px 20px;
+  box-sizing: border-box;
+  text-align: left; /* fixes center alignment issue */
+}
+
+/* PAGE TITLE — same red, same size */
+.services-title {
+  font-size: 2.4rem;
+  color: #c1121f;
+  margin-bottom: 20px;
+}
+
+/* INTRO PARAGRAPH — matches About page style */
+.services-intro {
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+/* SERVICES LIST — vertical stack like Projects page */
+.services-list {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* SERVICE CARD — identical to Projects card style */
+.service-item {
+  background: #ffffff;
+  padding: 20px 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: 0.3s ease;
+}
+
+.service-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+/* SERVICE TITLE — same as project titles */
+.service-item h2 {
+  font-size: 1.3rem;
+  color: #222;
+  margin-bottom: 10px;
+}
+
+/* SERVICE TEXT — same as project descriptions */
+.service-item p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .services-wrapper {
+    padding: 60px 15px;
+  }
+}
