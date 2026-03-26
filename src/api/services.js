@@ -5,10 +5,15 @@ export async function getAllServices() {
   try {
     const response = await fetch(`${API_BASE_URL}/services`);
     const data = await response.json();
+    // Expected backend shape: { success, message, data: [...] }
     return data;
   } catch (error) {
     console.error("Error fetching services:", error);
-    return { success: false, message: "Failed to fetch services." };
+    return {
+      success: false,
+      message: "Failed to fetch services.",
+      data: [],
+    };
   }
 }
 
@@ -17,10 +22,15 @@ export async function getServiceById(id) {
   try {
     const response = await fetch(`${API_BASE_URL}/services/${id}`);
     const data = await response.json();
+    // Expected backend shape: { success, message, data: { ... } }
     return data;
   } catch (error) {
     console.error("Error fetching service by ID:", error);
-    return { success: false, message: "Failed to fetch service." };
+    return {
+      success: false,
+      message: "Failed to fetch service.",
+      data: null,
+    };
   }
 }
 
@@ -34,10 +44,14 @@ export async function createService(serviceData) {
     });
 
     const data = await response.json();
+    // Expected backend shape: { success, message, data: { ... } }
     return data;
   } catch (error) {
     console.error("Error creating service:", error);
-    return { success: false, message: "Failed to create service." };
+    return {
+      success: false,
+      message: "Failed to create service.",
+    };
   }
 }
 
@@ -51,10 +65,14 @@ export async function updateService(id, serviceData) {
     });
 
     const data = await response.json();
+    // Expected backend shape: { success, message }
     return data;
   } catch (error) {
     console.error("Error updating service:", error);
-    return { success: false, message: "Failed to update service." };
+    return {
+      success: false,
+      message: "Failed to update service.",
+    };
   }
 }
 
@@ -66,9 +84,13 @@ export async function deleteService(id) {
     });
 
     const data = await response.json();
+    // Expected backend shape: { success, message }
     return data;
   } catch (error) {
     console.error("Error deleting service:", error);
-    return { success: false, message: "Failed to delete service." };
+    return {
+      success: false,
+      message: "Failed to delete service.",
+    };
   }
 }

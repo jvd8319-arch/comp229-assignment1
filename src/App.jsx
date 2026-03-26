@@ -18,6 +18,16 @@ import ProjectsList from "./pages/ProjectsList.jsx";
 import AddProject from "./pages/AddProject.jsx";
 import EditProject from "./pages/EditProject.jsx";
 
+// Services CRUD pages (NEW)
+import ServicesList from "./pages/ServicesList.jsx";
+import AddService from "./pages/AddService.jsx";
+import EditService from "./pages/EditService.jsx";
+
+// Contacts CRUD pages (NEW)
+import ContactsList from "./pages/ContactsList.jsx";
+import AddContact from "./pages/AddContact.jsx";
+import EditContact from "./pages/EditContact.jsx";
+
 function App() {
   return (
     <div>
@@ -40,6 +50,16 @@ function App() {
         <Route path="/projects-list" element={<ProjectsList />} />
         <Route path="/add-project" element={<AddProject />} />
         <Route path="/edit-project/:id" element={<EditProject />} />
+
+        {/* Services CRUD Routes (NEW) */}
+        <Route path="/services-list" element={<ServicesList />} />
+        <Route path="/add-service" element={<AddService />} />
+        <Route path="/edit-service/:id" element={<EditService />} />
+
+        {/* Contacts CRUD Routes (NEW) */}
+        <Route path="/contacts-list" element={<ContactsList />} />
+        <Route path="/add-contact" element={<AddContact />} />
+        <Route path="/edit-contact/:id" element={<EditContact />} />
 
         {/* Fallback Route */}
         <Route path="*" element={<Home />} />

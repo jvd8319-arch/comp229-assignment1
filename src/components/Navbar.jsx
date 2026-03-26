@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 import logo from "../assets/mjk-logo.png";
 
 function Navbar() {
+  const [open, setOpen] = useState(false);
+
   return (
     <nav className="navbar">
       <div className="navbar-logo">
@@ -58,27 +60,33 @@ function Navbar() {
           Contact
         </NavLink>
 
-        {/* Divider */}
-        <span className="nav-divider">|</span>
-
-        {/* Admin Links */}
-        <NavLink
-          to="/users"
-          className={({ isActive }) =>
-            isActive ? "nav-item active-link" : "nav-item"
-          }
+        {/* ADMIN PANEL DROPDOWN */}
+        <div
+          className="admin-dropdown"
+          onMouseEnter={() => setOpen(true)}
+          onMouseLeave={() => setOpen(false)}
         >
-          Users Admin
-        </NavLink>
+          <span className="nav-item admin-label">
+            Admin Panel ▼
+          </span>
 
-        <NavLink
-          to="/projects-list"
-          className={({ isActive }) =>
-            isActive ? "nav-item active-link" : "nav-item"
-          }
-        >
-          Projects Admin
-        </NavLink>
+          {open && (
+            <div className="admin-menu">
+              <NavLink to="/users" className="dropdown-item">
+                Users Admin
+              </NavLink>
+              <NavLink to="/projects-list" className="dropdown-item">
+                Projects Admin
+              </NavLink>
+              <NavLink to="/services-list" className="dropdown-item">
+                Services Admin
+              </NavLink>
+              <NavLink to="/contacts-list" className="dropdown-item">
+                Contacts Admin
+              </NavLink>
+            </div>
+          )}
+        </div>
       </div>
     </nav>
   );
