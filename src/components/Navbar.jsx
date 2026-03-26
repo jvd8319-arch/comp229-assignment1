@@ -12,6 +12,7 @@ function Navbar() {
       </div>
 
       <div className="navbar-links">
+        {/* Public Website Links */}
         <NavLink
           to="/"
           className={({ isActive }) =>
@@ -55,6 +56,28 @@ function Navbar() {
           }
         >
           Contact
+        </NavLink>
+
+        {/* Divider */}
+        <span className="nav-divider">|</span>
+
+        {/* Admin Links */}
+        <NavLink
+          to="/users"
+          className={({ isActive }) =>
+            isActive ? "nav-item active-link" : "nav-item"
+          }
+        >
+          Users Admin
+        </NavLink>
+
+        <NavLink
+          to="/projects-list"
+          className={({ isActive }) =>
+            isActive ? "nav-item active-link" : "nav-item"
+          }
+        >
+          Projects Admin
         </NavLink>
       </div>
     </nav>

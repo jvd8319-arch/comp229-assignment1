@@ -1,0 +1,1 @@
+export const API_BASE_URL = "https://comp229-assignment02-backend.onrender.com/api";
