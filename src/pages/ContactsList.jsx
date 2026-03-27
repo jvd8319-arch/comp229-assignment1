@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  getAllReferences,
-  deleteReference
-} from "../api/references";
+import { getAllReferences, deleteReference } from "../api/references";
 
 function ContactsList() {
   const [contacts, setContacts] = useState([]);
@@ -60,7 +57,8 @@ function ContactsList() {
           <tr style={{ background: "#f0f0f0" }}>
             <th>Name</th>
             <th>Email</th>
-            <th>Message</th>
+            <th>Position</th>
+            <th>Company</th>
             <th style={{ width: "150px" }}>Actions</th>
           </tr>
         </thead>
@@ -68,16 +66,19 @@ function ContactsList() {
         <tbody>
           {contacts.length === 0 ? (
             <tr>
-              <td colSpan="4" style={{ textAlign: "center" }}>
+              <td colSpan="5" style={{ textAlign: "center" }}>
                 No contacts found.
               </td>
             </tr>
           ) : (
             contacts.map((contact) => (
               <tr key={contact.id}>
-                <td>{contact.name}</td>
+                <td>
+                  {contact.firstname} {contact.lastname}
+                </td>
                 <td>{contact.email}</td>
-                <td>{contact.message}</td>
+                <td>{contact.position}</td>
+                <td>{contact.company}</td>
 
                 <td>
                   <button

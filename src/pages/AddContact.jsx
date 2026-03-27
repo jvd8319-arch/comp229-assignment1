@@ -1,16 +1,15 @@
 import { useState } from "react";
 import { createReference } from "../api/references";
+import ContactForm from "../components/ContactForm";
 
 function AddContact() {
   const [formData, setFormData] = useState({
-    name: "",
+    firstname: "",
+    lastname: "",
     email: "",
-    message: "",
+    position: "",
+    company: "",
   });
-
-  function handleChange(e) {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -29,50 +28,12 @@ function AddContact() {
     <div style={{ padding: "20px" }}>
       <h1>Add New Contact</h1>
 
-      <form onSubmit={handleSubmit} style={{ maxWidth: "500px" }}>
-        <label>Name:</label>
-        <input
-          type="text"
-          name="name"
-          required
-          value={formData.name}
-          onChange={handleChange}
-          style={{ width: "100%", padding: "8px", marginBottom: "10px" }}
-        />
-
-        <label>Email:</label>
-        <input
-          type="email"
-          name="email"
-          required
-          value={formData.email}
-          onChange={handleChange}
-          style={{ width: "100%", padding: "8px", marginBottom: "10px" }}
-        />
-
-        <label>Message:</label>
-        <textarea
-          name="message"
-          required
-          value={formData.message}
-          onChange={handleChange}
-          style={{ width: "100%", padding: "8px", marginBottom: "10px" }}
-        ></textarea>
-
-        <button
-          type="submit"
-          style={{
-            padding: "10px 15px",
-            background: "#007bff",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-          }}
-        >
-          Save Contact
-        </button>
-      </form>
+      <ContactForm
+        formData={formData}
+        setFormData={setFormData}
+        handleSubmit={handleSubmit}
+        buttonLabel="Save Contact"
+      />
     </div>
   );
 }

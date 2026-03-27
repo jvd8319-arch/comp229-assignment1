@@ -1,31 +1,32 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {
-  getReferenceById,
-  updateReference
-} from "../api/references";
+import { getReferenceById, updateReference } from "../api/references";
+import ContactForm from "../components/ContactForm";
 
 function EditContact() {
   const { id } = useParams();
 
   const [formData, setFormData] = useState({
-    name: "",
+    firstname: "",
+    lastname: "",
     email: "",
-    message: "",
+    position: "",
+    company: "",
   });
 
   const [loading, setLoading] = useState(true);
 
-  // Load contact data
   useEffect(() => {
     async function fetchContact() {
       const result = await getReferenceById(id);
 
       if (result.success && result.data) {
         setFormData({
-          name: result.data.name,
+          firstname: result.data.firstname,
+          lastname: result.data.lastname,
           email: result.data.email,
-          message: result.data.message,
+          position: result.data.position,
+          company: result.data.company,
         });
       }
 
@@ -34,10 +35,6 @@ function EditContact() {
 
     fetchContact();
   }, [id]);
-
-  function handleChange(e) {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -58,50 +55,12 @@ function EditContact() {
     <div style={{ padding: "20px" }}>
       <h1>Edit Contact</h1>
 
-      <form onSubmit={handleSubmit} style={{ maxWidth: "500px" }}>
-        <label>Name:</label>
-        <input
-          type="text"
-          name="name"
-          required
-          value={formData.name}
-          onChange={handleChange}
-          style={{ width: "100%", padding: "8px", marginBottom: "10px" }}
-        />
-
-        <label>Email:</label>
-        <input
-          type="email"
-          name="email"
-          required
-          value={formData.email}
-          onChange={handleChange}
-          style={{ width: "100%", padding: "8px", marginBottom: "10px" }}
-        />
-
-        <label>Message:</label>
-        <textarea
-          name="message"
-          required
-          value={formData.message}
-          onChange={handleChange}
-          style={{ width: "100%", padding: "8px", marginBottom: "10px" }}
-        ></textarea>
-
-        <button
-          type="submit"
-          style={{
-            padding: "10px 15px",
-            background: "green",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-          }}
-        >
-          Update Contact
-        </button>
-      </form>
+      <ContactForm
+        formData={formData}
+        setFormData={setFormData}
+        handleSubmit={handleSubmit}
+        buttonLabel="Update Contact"
+      />
     </div>
   );
 }
