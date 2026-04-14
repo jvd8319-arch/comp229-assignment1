@@ -1,10 +1,19 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import logo from "../assets/mjk-logo.png";
 
 function Navbar() {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const token = localStorage.getItem("token");
+  const isLoggedIn = !!token;
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
 
   return (
     <nav className="navbar">
@@ -60,33 +69,49 @@ function Navbar() {
           Contact
         </NavLink>
 
-        {/* ADMIN PANEL DROPDOWN */}
-        <div
-          className="admin-dropdown"
-          onMouseEnter={() => setOpen(true)}
-          onMouseLeave={() => setOpen(false)}
-        >
-          <span className="nav-item admin-label">
-            Admin Panel ▼
-          </span>
+        {/* ADMIN PANEL DROPDOWN — ONLY WHEN LOGGED IN */}
+        {isLoggedIn && (
+          <div
+            className="admin-dropdown"
+            onMouseEnter={() => setOpen(true)}
+            onMouseLeave={() => setOpen(false)}
+          >
+            <span className="nav-item admin-label">Admin Panel ▼</span>
 
-          {open && (
-            <div className="admin-menu">
-              <NavLink to="/users" className="dropdown-item">
-                Users Admin
-              </NavLink>
-              <NavLink to="/projects-list" className="dropdown-item">
-                Projects Admin
-              </NavLink>
-              <NavLink to="/services-list" className="dropdown-item">
-                Services Admin
-              </NavLink>
-              <NavLink to="/contacts-list" className="dropdown-item">
-                Contacts Admin
-              </NavLink>
-            </div>
-          )}
-        </div>
+            {open && (
+              <div className="admin-menu">
+                <NavLink to="/users" className="dropdown-item">
+                  Users Admin
+                </NavLink>
+                <NavLink to="/projects-list" className="dropdown-item">
+                  Projects Admin
+                </NavLink>
+                <NavLink to="/services-list" className="dropdown-item">
+                  Services Admin
+                </NavLink>
+                <NavLink to="/contacts-list" className="dropdown-item">
+                  Contacts Admin
+                </NavLink>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* LOGIN / LOGOUT BUTTON */}
+        {!isLoggedIn ? (
+          <NavLink
+            to="/login"
+            className={({ isActive }) =>
+              isActive ? "nav-item active-link" : "nav-item"
+            }
+          >
+            Login
+          </NavLink>
+        ) : (
+          <span className="nav-item" onClick={handleLogout} style={{ cursor: "pointer" }}>
+            Logout
+          </span>
+        )}
       </div>
     </nav>
   );

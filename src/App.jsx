@@ -1,12 +1,16 @@
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
-// Existing website pages
+// Public website pages
 import Home from "./pages/Home.jsx";
 import About from "./pages/About.jsx";
 import Projects from "./pages/Projects.jsx";
 import Services from "./pages/Services.jsx";
 import Contact from "./pages/Contact.jsx";
+
+// Login page
+import Login from "./pages/Login.jsx";
 
 // Users CRUD pages
 import UsersList from "./pages/UsersList.jsx";
@@ -18,12 +22,12 @@ import ProjectsList from "./pages/ProjectsList.jsx";
 import AddProject from "./pages/AddProject.jsx";
 import EditProject from "./pages/EditProject.jsx";
 
-// Services CRUD pages (NEW)
+// Services CRUD pages
 import ServicesList from "./pages/ServicesList.jsx";
 import AddService from "./pages/AddService.jsx";
 import EditService from "./pages/EditService.jsx";
 
-// Contacts CRUD pages (NEW)
+// Contacts CRUD pages
 import ContactsList from "./pages/ContactsList.jsx";
 import AddContact from "./pages/AddContact.jsx";
 import EditContact from "./pages/EditContact.jsx";
@@ -41,25 +45,112 @@ function App() {
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<Contact />} />
 
-        {/* Users CRUD Routes */}
-        <Route path="/users" element={<UsersList />} />
-        <Route path="/add-user" element={<AddUser />} />
-        <Route path="/edit-user/:id" element={<EditUser />} />
+        {/* Login Route */}
+        <Route path="/login" element={<Login />} />
 
-        {/* Projects CRUD Routes */}
-        <Route path="/projects-list" element={<ProjectsList />} />
-        <Route path="/add-project" element={<AddProject />} />
-        <Route path="/edit-project/:id" element={<EditProject />} />
+        {/* Users CRUD Routes (Protected) */}
+        <Route
+          path="/users"
+          element={
+            <ProtectedRoute>
+              <UsersList />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/add-user"
+          element={
+            <ProtectedRoute>
+              <AddUser />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/edit-user/:id"
+          element={
+            <ProtectedRoute>
+              <EditUser />
+            </ProtectedRoute>
+          }
+        />
 
-        {/* Services CRUD Routes (NEW) */}
-        <Route path="/services-list" element={<ServicesList />} />
-        <Route path="/add-service" element={<AddService />} />
-        <Route path="/edit-service/:id" element={<EditService />} />
+        {/* Projects CRUD Routes (Protected) */}
+        <Route
+          path="/projects-list"
+          element={
+            <ProtectedRoute>
+              <ProjectsList />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/add-project"
+          element={
+            <ProtectedRoute>
+              <AddProject />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/edit-project/:id"
+          element={
+            <ProtectedRoute>
+              <EditProject />
+            </ProtectedRoute>
+          }
+        />
 
-        {/* Contacts CRUD Routes (NEW) */}
-        <Route path="/contacts-list" element={<ContactsList />} />
-        <Route path="/add-contact" element={<AddContact />} />
-        <Route path="/edit-contact/:id" element={<EditContact />} />
+        {/* Services CRUD Routes (Protected) */}
+        <Route
+          path="/services-list"
+          element={
+            <ProtectedRoute>
+              <ServicesList />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/add-service"
+          element={
+            <ProtectedRoute>
+              <AddService />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/edit-service/:id"
+          element={
+            <ProtectedRoute>
+              <EditService />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Contacts CRUD Routes (Protected) */}
+        <Route
+          path="/contacts-list"
+          element={
+            <ProtectedRoute>
+              <ContactsList />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/add-contact"
+          element={
+            <ProtectedRoute>
+              <AddContact />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/edit-contact/:id"
+          element={
+            <ProtectedRoute>
+              <EditContact />
+            </ProtectedRoute>
+          }
+        />
 
         {/* Fallback Route */}
         <Route path="*" element={<Home />} />
