@@ -1,11 +1,16 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { createService } from "../api/services";
 
 function AddService() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
   });
+
+  const [saving, setSaving] = useState(false);
 
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -13,12 +18,15 @@ function AddService() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setSaving(true);
 
     const result = await createService(formData);
 
+    setSaving(false);
+
     if (result.success) {
       alert("Service added successfully!");
-      window.location.href = "/services-list"; // FIXED REDIRECT
+      navigate("/services-list");
     } else {
       alert("Failed to add service.");
     }
@@ -50,6 +58,7 @@ function AddService() {
 
         <button
           type="submit"
+          disabled={saving}
           style={{
             padding: "10px 15px",
             background: "#007bff",
@@ -59,7 +68,7 @@ function AddService() {
             cursor: "pointer",
           }}
         >
-          Save Service
+          {saving ? "Saving..." : "Save Service"}
         </button>
       </form>
     </div>

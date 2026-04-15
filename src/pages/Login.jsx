@@ -33,8 +33,8 @@ function Login() {
 
     alert("Login successful!");
 
-    // Redirect (we will refine this later)
-    window.location.href = "/projects-list";
+    // Redirect to user panel instead of projects list
+    window.location.href = "/users";
   }
 
   return (

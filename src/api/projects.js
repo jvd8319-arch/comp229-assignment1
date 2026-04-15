@@ -1,11 +1,21 @@
-import { API_BASE_URL } from "./config";
+// AUTO‑SELECT BACKEND URL (Local → Render)
+const API_BASE_URL =
+  window.location.hostname === "localhost"
+    ? "http://localhost:3000/api"
+    : "https://comp229-assignment02-backend.onrender.com/api";
 
 // GET ALL PROJECTS
 export async function getAllProjects() {
   try {
-    const response = await fetch(`${API_BASE_URL}/projects`);
-    const data = await response.json();
-    return data;
+    const token = localStorage.getItem("token");
+
+    const response = await fetch(`${API_BASE_URL}/projects`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return await response.json();
   } catch (error) {
     console.error("Error fetching projects:", error);
     return { success: false, message: "Failed to fetch projects." };
@@ -15,9 +25,15 @@ export async function getAllProjects() {
 // GET PROJECT BY ID
 export async function getProjectById(id) {
   try {
-    const response = await fetch(`${API_BASE_URL}/projects/${id}`);
-    const data = await response.json();
-    return data;
+    const token = localStorage.getItem("token");
+
+    const response = await fetch(`${API_BASE_URL}/projects/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return await response.json();
   } catch (error) {
     console.error("Error fetching project by ID:", error);
     return { success: false, message: "Failed to fetch project." };
@@ -27,14 +43,18 @@ export async function getProjectById(id) {
 // CREATE PROJECT
 export async function addProject(projectData) {
   try {
+    const token = localStorage.getItem("token");
+
     const response = await fetch(`${API_BASE_URL}/projects`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify(projectData),
     });
 
-    const data = await response.json();
-    return data;
+    return await response.json();
   } catch (error) {
     console.error("Error creating project:", error);
     return { success: false, message: "Failed to create project." };
@@ -44,14 +64,18 @@ export async function addProject(projectData) {
 // UPDATE PROJECT
 export async function updateProject(id, projectData) {
   try {
+    const token = localStorage.getItem("token");
+
     const response = await fetch(`${API_BASE_URL}/projects/${id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify(projectData),
     });
 
-    const data = await response.json();
-    return data;
+    return await response.json();
   } catch (error) {
     console.error("Error updating project:", error);
     return { success: false, message: "Failed to update project." };
@@ -61,12 +85,16 @@ export async function updateProject(id, projectData) {
 // DELETE PROJECT
 export async function deleteProject(id) {
   try {
+    const token = localStorage.getItem("token");
+
     const response = await fetch(`${API_BASE_URL}/projects/${id}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
 
-    const data = await response.json();
-    return data;
+    return await response.json();
   } catch (error) {
     console.error("Error deleting project:", error);
     return { success: false, message: "Failed to delete project." };

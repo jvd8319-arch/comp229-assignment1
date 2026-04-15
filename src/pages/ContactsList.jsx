@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getAllReferences, deleteReference } from "../api/references";
 
 function ContactsList() {
   const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
-  // Load all contacts on page load
   useEffect(() => {
     async function fetchContacts() {
       const result = await getAllReferences();
-      setContacts(result.data || []); // backend returns { success, data }
+      setContacts(result.data || []);
       setLoading(false);
     }
     fetchContacts();
   }, []);
 
-  // Handle delete
   async function handleDelete(id) {
     if (!window.confirm("Are you sure you want to delete this contact?")) return;
 
@@ -34,7 +34,7 @@ function ContactsList() {
       <h1>Contacts List</h1>
 
       <button
-        onClick={() => (window.location.href = "/add-contact")}
+        onClick={() => navigate("/add-contact")}
         style={{
           marginBottom: "15px",
           padding: "10px 15px",
@@ -82,9 +82,7 @@ function ContactsList() {
 
                 <td>
                   <button
-                    onClick={() =>
-                      (window.location.href = `/edit-contact/${contact.id}`)
-                    }
+                    onClick={() => navigate(`/edit-contact/${contact.id}`)}
                     style={{
                       marginRight: "10px",
                       padding: "5px 10px",

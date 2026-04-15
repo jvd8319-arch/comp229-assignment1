@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getAllUsers, deleteUser } from "../api/users";
 
 function UsersList() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
-  // Load all users on page load
   useEffect(() => {
     async function fetchUsers() {
       const data = await getAllUsers();
-      setUsers(data.data || []); // backend returns { success, data }
+      setUsers(data.data || []);
       setLoading(false);
     }
     fetchUsers();
   }, []);
 
-  // Handle delete
   async function handleDelete(id) {
     if (!window.confirm("Are you sure you want to delete this user?")) return;
 
@@ -34,7 +34,7 @@ function UsersList() {
       <h1>Users List</h1>
 
       <button
-        onClick={() => (window.location.href = "/add-user")}
+        onClick={() => navigate("/add-user")}
         style={{
           marginBottom: "15px",
           padding: "10px 15px",
@@ -71,14 +71,14 @@ function UsersList() {
           ) : (
             users.map((user) => (
               <tr key={user.id}>
-                <td>{user.firstname} {user.lastname}</td>
+                <td>
+                  {user.firstname} {user.lastname}
+                </td>
                 <td>{user.email}</td>
 
                 <td>
                   <button
-                    onClick={() =>
-                      (window.location.href = `/edit-user/${user.id}`)
-                    }
+                    onClick={() => navigate(`/edit-user/${user.id}`)}
                     style={{
                       marginRight: "10px",
                       padding: "5px 10px",

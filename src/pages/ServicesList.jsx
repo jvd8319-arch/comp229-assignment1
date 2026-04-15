@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getAllServices, deleteService } from "../api/services";
 
 function ServicesList() {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
-  // Load all services on page load
   useEffect(() => {
     async function fetchServices() {
       const result = await getAllServices();
-      setServices(result.data || []); // backend returns { success, data }
+      setServices(result.data || []);
       setLoading(false);
     }
     fetchServices();
   }, []);
 
-  // Handle delete
   async function handleDelete(id) {
     if (!window.confirm("Are you sure you want to delete this service?")) return;
 
@@ -34,7 +34,7 @@ function ServicesList() {
       <h1>Services List</h1>
 
       <button
-        onClick={() => (window.location.href = "/add-service")}
+        onClick={() => navigate("/add-service")}
         style={{
           marginBottom: "15px",
           padding: "10px 15px",
@@ -76,9 +76,7 @@ function ServicesList() {
 
                 <td>
                   <button
-                    onClick={() =>
-                      (window.location.href = `/edit-service/${service.id}`)
-                    }
+                    onClick={() => navigate(`/edit-service/${service.id}`)}
                     style={{
                       marginRight: "10px",
                       padding: "5px 10px",

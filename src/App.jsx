@@ -9,8 +9,9 @@ import Projects from "./pages/Projects.jsx";
 import Services from "./pages/Services.jsx";
 import Contact from "./pages/Contact.jsx";
 
-// Login page
+// Login + Signup pages
 import Login from "./pages/Login.jsx";
+import Signup from "./pages/Signup.jsx";
 
 // Users CRUD pages
 import UsersList from "./pages/UsersList.jsx";
@@ -45,8 +46,9 @@ function App() {
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<Contact />} />
 
-        {/* Login Route */}
+        {/* Login + Signup Routes */}
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
 
         {/* Users CRUD Routes (Protected) */}
         <Route

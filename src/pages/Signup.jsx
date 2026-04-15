@@ -1,67 +1,50 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { getUserById, updateUser } from "../api/users";
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-function EditUser() {
-  const { id } = useParams();
+function Signup() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
     email: "",
-    password: ""
+    password: "",
   });
 
-  const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-  useEffect(() => {
-    async function fetchUser() {
-      const data = await getUserById(id);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-      if (data.success && data.data) {
-        setFormData({
-          firstname: data.data.firstname,
-          lastname: data.data.lastname,
-          email: data.data.email,
-          password: "" // password not returned for security
-        });
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/auth/signup",
+        formData
+      );
+
+      // Backend returns success: true (HTTP 200)
+      if (response.data?.success) {
+        alert("User registered successfully!");
+        navigate("/users");   // <-- Redirect to users page
+        return;
       }
 
-      setLoading(false);
+      // If backend returns success: false
+      alert(response.data?.message || "Signup failed");
+    } catch (error) {
+      console.error(error);
+      alert(error.response?.data?.message || "Signup failed. Try again.");
     }
-
-    fetchUser();
-  }, [id]);
-
-  function handleChange(e) {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  }
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    setSaving(true);
-
-    const result = await updateUser(id, formData);
-
-    setSaving(false);
-
-    if (result.success) {
-      alert("User updated successfully!");
-      navigate("/users");
-    } else {
-      alert("Failed to update user.");
-    }
-  }
-
-  if (loading) return <p>Loading user details...</p>;
+  };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Edit User</h1>
+    <div style={{ padding: "20px", maxWidth: "400px", margin: "0 auto" }}>
+      <h1>Sign Up</h1>
 
-      <form onSubmit={handleSubmit} style={{ maxWidth: "400px" }}>
+      <form onSubmit={handleSubmit}>
         <label>First Name:</label>
         <input
           type="text"
@@ -92,10 +75,11 @@ function EditUser() {
           style={{ width: "100%", padding: "8px", marginBottom: "10px" }}
         />
 
-        <label>Password (leave blank to keep unchanged):</label>
+        <label>Password:</label>
         <input
           type="password"
           name="password"
+          required
           value={formData.password}
           onChange={handleChange}
           style={{ width: "100%", padding: "8px", marginBottom: "10px" }}
@@ -103,21 +87,21 @@ function EditUser() {
 
         <button
           type="submit"
-          disabled={saving}
           style={{
             padding: "10px 15px",
             background: "#007bff",
             color: "white",
             border: "none",
             borderRadius: "5px",
-            cursor: "pointer"
+            cursor: "pointer",
+            width: "100%",
           }}
         >
-          {saving ? "Saving..." : "Update User"}
+          Sign Up
         </button>
       </form>
     </div>
   );
 }
 
-export default EditUser;
+export default Signup;

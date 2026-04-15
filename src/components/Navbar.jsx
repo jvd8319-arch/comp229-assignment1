@@ -97,18 +97,33 @@ function Navbar() {
           </div>
         )}
 
-        {/* LOGIN / LOGOUT BUTTON */}
+        {/* LOGIN + SIGN UP WHEN LOGGED OUT / LOGOUT WHEN LOGGED IN */}
         {!isLoggedIn ? (
-          <NavLink
-            to="/login"
-            className={({ isActive }) =>
-              isActive ? "nav-item active-link" : "nav-item"
-            }
-          >
-            Login
-          </NavLink>
+          <>
+            <NavLink
+              to="/login"
+              className={({ isActive }) =>
+                isActive ? "nav-item active-link" : "nav-item"
+              }
+            >
+              Login
+            </NavLink>
+
+            <NavLink
+              to="/signup"
+              className={({ isActive }) =>
+                isActive ? "nav-item active-link" : "nav-item"
+              }
+            >
+              Sign Up
+            </NavLink>
+          </>
         ) : (
-          <span className="nav-item" onClick={handleLogout} style={{ cursor: "pointer" }}>
+          <span
+            className="nav-item"
+            onClick={handleLogout}
+            style={{ cursor: "pointer" }}
+          >
             Logout
           </span>
         )}

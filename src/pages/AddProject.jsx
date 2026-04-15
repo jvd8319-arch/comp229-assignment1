@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -33,7 +32,7 @@ function AddProject() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(project),
       });
@@ -53,36 +52,61 @@ function AddProject() {
     <div style={{ padding: "20px" }}>
       <h1>Add New Project</h1>
 
-      {error && <p className="error-message">{error}</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} style={{ maxWidth: "500px" }}>
         <label>Project Title:</label>
         <input
           type="text"
           name="title"
+          required
           value={project.title}
           onChange={handleChange}
-          required
+          style={{
+            width: "100%",
+            padding: "8px",
+            marginBottom: "10px",
+          }}
         />
 
         <label>Description:</label>
         <textarea
           name="description"
+          required
           value={project.description}
           onChange={handleChange}
-          required
-        />
+          style={{
+            width: "100%",
+            padding: "8px",
+            marginBottom: "10px",
+          }}
+        ></textarea>
 
         <label>Completion Date:</label>
         <input
           type="date"
           name="completion"
+          required
           value={project.completion}
           onChange={handleChange}
-          required
+          style={{
+            width: "100%",
+            padding: "8px",
+            marginBottom: "10px",
+          }}
         />
 
-        <button type="submit" className="btn-submit">
+        <button
+          type="submit"
+          style={{
+            padding: "10px 15px",
+            background: "#007bff",
+            color: "white",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+          }}
+        >
           Add Project
         </button>
       </form>

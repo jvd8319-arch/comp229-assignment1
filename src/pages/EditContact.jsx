@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getReferenceById, updateReference } from "../api/references";
 import ContactForm from "../components/ContactForm";
 
 function EditContact() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     firstname: "",
@@ -15,6 +16,7 @@ function EditContact() {
   });
 
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     async function fetchContact() {
@@ -38,12 +40,15 @@ function EditContact() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setSaving(true);
 
     const result = await updateReference(id, formData);
 
+    setSaving(false);
+
     if (result.success) {
       alert("Contact updated successfully!");
-      window.location.href = "/contacts-list";
+      navigate("/contacts-list");
     } else {
       alert("Failed to update contact.");
     }
@@ -59,7 +64,7 @@ function EditContact() {
         formData={formData}
         setFormData={setFormData}
         handleSubmit={handleSubmit}
-        buttonLabel="Update Contact"
+        buttonLabel={saving ? "Saving..." : "Update Contact"}
       />
     </div>
   );

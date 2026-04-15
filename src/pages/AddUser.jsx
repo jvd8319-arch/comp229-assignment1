@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { addUser } from "../api/users";
 
 function AddUser() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
@@ -25,7 +28,7 @@ function AddUser() {
 
     if (result.success) {
       alert("User created successfully!");
-      window.location.href = "/users";
+      navigate("/users");
     } else {
       alert("Failed to create user.");
     }
@@ -81,7 +84,7 @@ function AddUser() {
           disabled={saving}
           style={{
             padding: "10px 15px",
-            background: "green",
+            background: "#007bff",
             color: "white",
             border: "none",
             borderRadius: "5px",

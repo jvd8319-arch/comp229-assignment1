@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getServiceById, updateService } from "../api/services";
 
 function EditService() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     title: "",
@@ -11,6 +12,7 @@ function EditService() {
   });
 
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     async function fetchService() {
@@ -35,12 +37,15 @@ function EditService() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setSaving(true);
 
     const result = await updateService(id, formData);
 
+    setSaving(false);
+
     if (result.success) {
       alert("Service updated successfully!");
-      window.location.href = "/services-list"; // FIXED REDIRECT
+      navigate("/services-list");
     } else {
       alert("Failed to update service.");
     }
@@ -74,16 +79,17 @@ function EditService() {
 
         <button
           type="submit"
+          disabled={saving}
           style={{
             padding: "10px 15px",
-            background: "green",
+            background: "#007bff",
             color: "white",
             border: "none",
             borderRadius: "5px",
             cursor: "pointer",
           }}
         >
-          Update Service
+          {saving ? "Saving..." : "Update Service"}
         </button>
       </form>
     </div>
