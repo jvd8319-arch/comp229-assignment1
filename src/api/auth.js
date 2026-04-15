@@ -1,6 +1,8 @@
-// src/api/auth.js
-
-const API_BASE_URL = "http://localhost:3000"; // backend base URL
+// AUTO‑SELECT BACKEND URL (Local → Render)
+const API_BASE_URL =
+  window.location.hostname === "localhost"
+    ? "http://localhost:3000"
+    : "https://comp229-assignment02-backend.onrender.com";
 
 export async function loginUser(credentials) {
   try {
