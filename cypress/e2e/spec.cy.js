@@ -1,5 +1,6 @@
 describe('Sign Up Test', () => {
   it('records user actions', () => {
-    cy.visit('http://localhost:5173');
+    cy.visit('http://localhost:5173')
   });
 });
+                    
